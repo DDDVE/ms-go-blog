@@ -4,7 +4,7 @@ import "ms-go-blog/config"
 
 type HomeResponse struct {
 	config.Viewer
-	Categories []Category
+	Categorys []Category
 	Posts []PostMore
 	Total int
 	Page int
