@@ -5,6 +5,16 @@ import (
 	"ms-go-blog/models"
 )
 
+func CountGetAllPostByCategoryId(cId int) int {
+	row := DB.QueryRow("select count(1) from blog_post where category_id = ?", cId)
+	if row.Err() != nil {
+		log.Println("查询post总数出现错误：", row.Err())
+	}
+	count := 0
+	_ = row.Scan(&count)
+	return count
+}
+
 func CountGetAllPost() int {
 	row := DB.QueryRow("select count(1) from blog_post")
 	if row.Err() != nil {

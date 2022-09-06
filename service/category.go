@@ -7,12 +7,12 @@ import (
 	"ms-go-blog/models"
 )
 
-func GetAllIndexInfo(page, pageSize int) (*models.HomeResponse, error) {
+func GetPostsByCategoryId(cId, page, pageSize int) (*models.CategoryResponse, error) {
 	var categorys, err = dao.GetAllCategory()
 	if err != nil {
 		return nil, err
 	}
-	posts, err := dao.GetPostPage(page, pageSize)
+	posts, err := dao.GetPostPageByCategoryId(cId, page, pageSize)
 	var postMores []models.PostMore
 	for _, post := range posts {
 		categoryName := dao.GetCategoryNameById(post.CategoryId)
@@ -36,7 +36,7 @@ func GetAllIndexInfo(page, pageSize int) (*models.HomeResponse, error) {
 		}
 		postMores = append(postMores, postMore)
 	}
-	total := dao.CountGetAllPost()
+	total := dao.CountGetAllPostByCategoryId(cId)
 	pagesCount := (total - 1) / pageSize + 1
 	pages := make([]int, pagesCount)
 	for i := 0; i < pagesCount; i++ {
@@ -51,5 +51,10 @@ func GetAllIndexInfo(page, pageSize int) (*models.HomeResponse, error) {
 		pages,
 		page != pagesCount,
 	}
-	return hr, nil
+	categoryName := dao.GetCategoryNameById(cId)
+	categoryResponse := &models.CategoryResponse{
+		hr,
+		categoryName,
+	}
+	return categoryResponse, nil
 }
