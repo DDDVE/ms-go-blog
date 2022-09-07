@@ -97,8 +97,13 @@ func (api *Api) SaveAndUpdatePost(w http.ResponseWriter, r *http.Request) {
 		service.UpdatePost(post)
 		common.Success(w, post)
 	}
+}
 
-
+func (*Api) SearchPost(w http.ResponseWriter, r *http.Request) {
+	_ = r.ParseForm()
+	condition := r.Form.Get("val")
+	searchRes := service.SearchPost(condition)
+	common.Success(w, searchRes)
 }
 
 
