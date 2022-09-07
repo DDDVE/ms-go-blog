@@ -49,6 +49,10 @@ func Writing() (wr models.WritingRes) {
 	return
 }
 
+func UpdatePost(post *models.Post) {
+	dao.UpdatePost(post)
+}
+
 func SavePost(post *models.Post) {
 	dao.SavePost(post)
 }

@@ -13,7 +13,9 @@ func Router() {
 	http.HandleFunc("/p/", views.HTML.Detail)
 	http.HandleFunc("/login/", views.HTML.Login)
 	http.HandleFunc("/writing/", views.HTML.Writing)
+
 	http.HandleFunc("/api/v1/post", api.API.SaveAndUpdatePost)
+	http.HandleFunc("/api/v1/post/", api.API.GetPost)
 	http.HandleFunc("/api/v1/login", api.API.Login)
 	//将请求路径为 /resource 映射到 public/resource/
 	http.Handle("/resource/", http.StripPrefix("/resource/", http.FileServer(http.Dir("public/resource/"))))
