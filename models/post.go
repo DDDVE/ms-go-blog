@@ -64,3 +64,10 @@ type WritingRes struct {
 	Categorys []Category
 
 }
+
+type PigeonholeRes struct {
+	config.Viewer
+	config.SystemConfig
+	Categorys []Category
+	Lines map[string][]Post
+}
