@@ -9,13 +9,14 @@ import (
 type Post struct {
 	Pid 		int 		`json:"pid"`		//文章id
 	Title 		string 		`json:"title"`		//文章标题
+	Slug 		string 		`json:"slug"`		//自定义页面 path
 	Content 	string 		`json:"content"`	//文章的 html
 	Markdown 	string 		`json:"markdown"`	//文章的 markdown
 	CategoryId 	int 		`json:"categoryId"`	//分类 id
 	UserId 		int 		`json:"userId"`		//用户 id
 	ViewCount 	int 		`json:"viewCount"`	//被查看次数
 	Type 		int 		`json:"type"`		//文章类型。0=普通 1=自定义
-	Slug 		string 		`json:"slug"`		//自定义页面 path
+
 	CreateAt 	time.Time 	`json:"createAt"`	//创建时间
 	UpdateAt 	time.Time 	`json:"updateAt"`	//更新时间
 }
@@ -55,4 +56,11 @@ type PostRes struct {
 	config.Viewer
 	config.SystemConfig
 	Article PostMore
+}
+
+type WritingRes struct {
+	Title string
+	CdnURL string
+	Categorys []Category
+
 }

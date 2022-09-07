@@ -5,6 +5,20 @@ import (
 	"ms-go-blog/models"
 )
 
+func SavePost(post *models.Post) {
+	ret, err := DB.Exec("insert into blog_post " +
+		"(title, content, markdown, category_id, user_id, view_count, type, slug, create_at, update_at) " +
+		"values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", post.Title, post.Content, post.Markdown, post.CategoryId, post.UserId,
+		post.ViewCount, post.Type, post.Slug, post.CreateAt, post.UpdateAt,
+		)
+	if err != nil {
+		log.Println(err)
+	}
+	pid, _ := ret.LastInsertId()
+	post.Pid = int(pid)
+
+}
+
 func GetPostById(pid int) (models.Post,error) {
 	row := DB.QueryRow("select * from blog_post where pid = ?", pid)
 	var post models.Post

@@ -25,7 +25,7 @@
             <span class="publish-close">×</span>
             <h1 class="category-label">分类：</h1>
             <ul class="category category-style">
-              {{range $index, $elem := .categorys}}
+              {{range $index, $elem := .Categorys}}
               <li value="{{$elem.Cid}}">{{$elem.Name}}</li>
               {{end}}
             </ul>
