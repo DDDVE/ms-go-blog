@@ -5,6 +5,31 @@ import (
 	"ms-go-blog/models"
 )
 
+func GetPostById(pid int) (models.Post,error) {
+	row := DB.QueryRow("select * from blog_post where pid = ?", pid)
+	var post models.Post
+	if row.Err() != nil {
+		return post, row.Err()
+	}
+	err := row.Scan(
+		&post.Pid,
+		&post.Title,
+		&post.Content,
+		&post.Markdown,
+		&post.CategoryId,
+		&post.UserId,
+		&post.ViewCount,
+		&post.Type,
+		&post.Slug,
+		&post.CreateAt,
+		&post.UpdateAt,
+	)
+	if err != nil {
+		return post, err
+	}
+	return post, nil
+}
+
 func CountGetAllPostByCategoryId(cId int) int {
 	row := DB.QueryRow("select count(1) from blog_post where category_id = ?", cId)
 	if row.Err() != nil {
